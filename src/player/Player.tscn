@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_bxlh5"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rb016"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v4ji6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m8y8d"]
@@ -11,22 +13,24 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_m8y8d")
 size = Vector3(0.8, 0.2, 0.4)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rb016"]
-
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_bxlh5")
 use_keyboard = true
 target_speed = 3.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_v4ji6")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.431393, -0.308629)
-mesh = SubResource("BoxMesh_21503")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_rb016")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_v4ji6")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.431393, -0.308629)
+mesh = SubResource("BoxMesh_21503")
+skeleton = NodePath("../..")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.409237, -0.316928)
+
+[node name="ConnectionHandler" type="Node3D" parent="."]
